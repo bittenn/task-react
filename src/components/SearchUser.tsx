@@ -12,23 +12,28 @@ export function SearchUser() {
   //  - utils/createDebounced 를 사용해서 입력 변경시 300ms 이후에 searchUsers 호출
   //  - 빈 문자열일 땐 검색하지 않고 결과를 비웁니다.
   //  - cleanup 시 cancel 호출
-  useEffect(() => {
-    let active = true
-    async function run() {
+
+
+  const debouncedSearch = useMemo(() => {
+    return createDebounced(async (q: string) => {
       if (!q.trim()) {
         setResults([])
         return
       }
       setLoading(true)
-      const users = await searchUsers(q)
-      if (active) setResults(users)
+      const user = await searchUsers(q)
+      setResults(user)
       setLoading(false)
-    }
-    run()
+    })
+  }, [])
+
+  useEffect(() => {
+    debouncedSearch.call(q)
+
     return () => {
-      active = false
+      debouncedSearch.cancel()
     }
-  }, [q])
+  }, [q, debouncedSearch])
 
   return (
     <div>
