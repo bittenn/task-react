@@ -7,6 +7,8 @@ import {
 } from '../api/mock'
 import '../styles/taskBoard.css'
 import { calcProgress } from '../utils/progress'
+import { getProjects } from '../api/mock/db'
+import { ProjectList } from './ProjectList'
 
 export type TaskBoardProps = {
   projectId?: string
@@ -45,8 +47,12 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
   }
 
   async function handleCreate() {
-    if (!projectId) return
+    if (!projectId) { return }
     // TODO 11: (로직개선) title 을 trim 하고, 빈 문자열이면 생성하지 않도록 하세요.
+    const trimed = title.trim()
+    if (!trimed) {
+      return
+    }
     // 추가 요구: 같은 제목의 task 가 이미 있는 경우 생성하지 않도록 방지하세요. (lodash 사용 가능)
     await createTask(projectId, title)
     setTitle('')
