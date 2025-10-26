@@ -88,7 +88,7 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
           {tasks.map((t) => (
             <li key={t.id} className={t.done ? 'task-done' : undefined}>
               <label>
-                <input type="checkbox" checked={t.done} onChange={() => handleToggle(t.id)} />
+                <input style={{ display: "none" }} type="checkbox" checked={t.done} onChange={() => handleToggle(t.id)} />
                 {t.title}
               </label>
             </li>

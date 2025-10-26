@@ -1,12 +1,12 @@
 /* TaskBoard styles */
 
 .taskboard__list {
-  list-style: none;
-  padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 .taskboard__create {
-  margin: 8px 0 12px;
+	margin: 8px 0 12px;
 }
 
 /* TODO 12: (CSS) 완료된 task(.task-done) 의 스타일을 개선하세요.
@@ -16,5 +16,21 @@
    - 아이템 왼쪽에 연한 체크 마크 배경 또는 아이콘 느낌
 */
 .task-done {
-  /* 구현하세요. */
+	color: #f1f2f5;
+	text-decoration: line-through;
+	position: relative;
+
+	/* 구현하세요. */
+}
+.task-done::before {
+	content: "✓";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	background: #f1f2f5;
+	border-radius: 50%;
+	overflow: hidden;
+	width: 16px;
+	height: 16px;
 }
