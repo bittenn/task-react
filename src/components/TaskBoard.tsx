@@ -72,9 +72,14 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="New task title"
+          aria-label='New task title'
+          aria-required='true'
+          aria-describedby='task-create'
         // TODO 13: (접근성) 입력 필드에 적절한 aria-* 속성을 추가하세요.
         />
-        <button onClick={handleCreate}>Add</button>
+        <button
+          aria-label='add'
+          onClick={handleCreate}>Add</button>
       </div>
       {loading ? (
         <div>Loading tasks...</div>
