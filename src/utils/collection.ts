@@ -34,7 +34,10 @@ export function highPriorityFirst(tasks: SimpleTask[]): SimpleTask[] {
 	const order = { high: 0, medium: 1, low: 2 } as const
 	// lodash.sortBy 또는 Array.prototype.sort 를 사용할 수 있습니다.
 	// 구현하세요.
-	return tasks
+
+	return tasks.sort(
+		(a, b) => order[a.priority ?? "low"] - order[b.priority ?? "low"]
+	)
 }
 
 // TODO 03: (기초) done 상태로 groupBy 하여 { true: SimpleTask[]; false: SimpleTask[] } 형태를 만드세요.
