@@ -6,6 +6,7 @@ import {
   type Task,
 } from '../api/mock'
 import '../styles/taskBoard.css'
+import { calcProgress } from '../utils/progress'
 
 export type TaskBoardProps = {
   projectId?: string
@@ -30,11 +31,7 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
   // TODO 10: (리팩토링) 아래 progress 계산 로직을 컴포넌트 외부의 순수 함수로 추출하세요.
   // 파일 예: src/utils/progress.ts -> export function calcProgress(tasks: Task[]) { ... }
   // 그런 다음 이 컴포넌트에서는 그 함수를 import 해서 사용하세요.
-  const progress = useMemo(() => {
-    const total = tasks.length
-    const done = tasks.filter((t) => t.done).length
-    return { total, done, percent: total === 0 ? 0 : Math.round((done / total) * 100) }
-  }, [tasks])
+  const progress = useMemo(() => calcProgress(tasks), [tasks])
 
   async function refresh() {
     if (!projectId) return
@@ -69,7 +66,7 @@ export function TaskBoard({ projectId }: TaskBoardProps) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="New task title"
-          // TODO 13: (접근성) 입력 필드에 적절한 aria-* 속성을 추가하세요.
+        // TODO 13: (접근성) 입력 필드에 적절한 aria-* 속성을 추가하세요.
         />
         <button onClick={handleCreate}>Add</button>
       </div>
